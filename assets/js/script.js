@@ -9,6 +9,19 @@
 // WHEN I click on a city in the search history -> THEN I am again presented with current and future conditions for that city
 
 
+//API call example: https://api.openweathermap.org/data/2.5/weather?q=London&appid={API key}
+// weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}";
 
+var city; // user input to be stored in this variable
+var state;
+var country;
+var APIKey = "32ec16b0deb6b7328bcf20bb8cd46fce";
+var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
-var weatherKey = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}";
+fetch(queryURL)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+  });
