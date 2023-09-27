@@ -28,11 +28,11 @@ var humidityEl = document.getElementById('humidity1'); // humidity El from first
 var dateEl; // Date element on card
 
 
-function runAPI() { // Calls forecast, NOT current weather. (replace forecast with 'weather')
+function fiveDayFunction() { // Calls forecast, NOT current weather. (replace forecast with 'weather')
     searchBtn.addEventListener("click", function () {
         event.preventDefault(); // Prevent the form from submitting
         city = searchInput.value;
-        queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+        queryURL = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + city + "&appid=" + APIKey;
         console.log('City Name: ')
         console.log(city);
         fetch(queryURL)
@@ -42,11 +42,37 @@ function runAPI() { // Calls forecast, NOT current weather. (replace forecast wi
             .then(function (data) {
                 console.log('Data: ')
                 console.log(data);
-                temperatureEl.textContent = 'Temperature: ' + data.list[0].main.temp; // asign data to an element
-                windSpeedEl.textContent = 'Wind Speed: ' + data.list[0].wind.speed + 'MPH'; // asign data to an element
-                humidityEl.textContent = 'Humidity: ' + data.list[0].main.humidity; // asign data to an element
+ for (var i = 0; i < data.list.length; i++) {
+   if (data.list[i].dt_txt.split(' ')[1] === '12:00:00') {
+console.log(data.list[i]); // all 5 days at noon
+var cardEl = document.createElement('div');
+var ulEl = document.createElement('ul');
+var tempEl = document.createElement('li');
+var windEl = document.createElement('li');
+var humidEl = document.createElement('li');
+
+tempEl.textContent = 'Temperature: ' + data.list[i].main.temp; // asign data to an element
+windEl.textContent = 'Wind Speed: ' + data.list[i].wind.speed + 'MPH'; // asign data to an element
+humidEl = 'Humidity: ' + data.list[i].main.humidity; // asign data to an element
+
+// cardEl.append to the div etc
+
+   }
+ }
+
+
+                // temperatureEl.textContent = 'Temperature: ' + data.list[0].main.temp; // asign data to an element
+                // windSpeedEl.textContent = 'Wind Speed: ' + data.list[0].wind.speed + 'MPH'; // asign data to an element
+                // humidityEl.textContent = 'Humidity: ' + data.list[0].main.humidity; // asign data to an element
             })
     }) 
 };
 
-runAPI();
+// function currentWeather() { // for todays weather -> same code as above but attached to new elements
+
+// }
+
+
+
+
+fiveDayFunction();
