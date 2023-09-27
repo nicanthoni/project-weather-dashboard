@@ -16,22 +16,28 @@
 var state;
 var country;
 var APIKey = "32ec16b0deb6b7328bcf20bb8cd46fce";
-var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-
-var searchInput = document.getElementById("citySearch"); // element
+var queryURL;
 var city; // user input to be stored in this variable
-city = searchInput.value; 
-console.log(city);
 
-// function runAPI () {
-// fetch(queryURL)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log(data);
-//   });
-// }                      
+var searchInput = document.getElementById("citySearch"); // Input (search) element
+var searchBtn = document.getElementById("searchBtn"); // Button element
 
 
-  // event listener on search button to runAPI()
+function runAPI() {
+    searchBtn.addEventListener("click", function () {
+        event.preventDefault(); // Prevent the form from submitting
+        city = searchInput.value;
+        queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+        console.log('City Name: ')
+        console.log(city);
+        fetch(queryURL)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+            })
+    })
+};
+
+runAPI();
