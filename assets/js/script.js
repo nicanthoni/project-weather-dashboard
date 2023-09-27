@@ -22,12 +22,17 @@ var city; // user input to be stored in this variable
 var searchInput = document.getElementById("citySearch"); // Input (search) element
 var searchBtn = document.getElementById("searchBtn"); // Button element
 
+var temperatureEl = document.getElementById("temp1"); // Temp El from first card
+var windSpeedEl = document.getElementById('wind-Speed1'); // windSpeed el from first card
+var humidityEl = document.getElementById('humidity1'); // humidity El from first card
+var dateEl; // Date element on card
 
-function runAPI() {
+
+function runAPI() { // Calls forecast, NOT current weather. (replace forecast with 'weather')
     searchBtn.addEventListener("click", function () {
         event.preventDefault(); // Prevent the form from submitting
         city = searchInput.value;
-        queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+        queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
         console.log('City Name: ')
         console.log(city);
         fetch(queryURL)
@@ -35,9 +40,13 @@ function runAPI() {
                 return response.json();
             })
             .then(function (data) {
+                console.log('Data: ')
                 console.log(data);
+                temperatureEl.textContent = 'Temperature: ' + data.list[0].main.temp; // asign data to an element
+                windSpeedEl.textContent = 'Wind Speed: ' + data.list[0].wind.speed + 'MPH'; // asign data to an element
+                humidityEl.textContent = 'Humidity: ' + data.list[0].main.humidity; // asign data to an element
             })
-    })
+    }) 
 };
 
 runAPI();
