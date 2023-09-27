@@ -12,16 +12,26 @@
 //API call example: https://api.openweathermap.org/data/2.5/weather?q=London&appid={API key}
 // weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}";
 
-var city; // user input to be stored in this variable
+
 var state;
 var country;
 var APIKey = "32ec16b0deb6b7328bcf20bb8cd46fce";
 var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
-fetch(queryURL)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-  });
+var searchInput = document.getElementById("citySearch"); // element
+var city; // user input to be stored in this variable
+city = searchInput.value; 
+console.log(city);
+
+// function runAPI () {
+// fetch(queryURL)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data);
+//   });
+// }                      
+
+
+  // event listener on search button to runAPI()
