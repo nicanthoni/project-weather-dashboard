@@ -22,12 +22,18 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
             .then(function (data) {
                 console.log('5Day data: ')
                 console.log(data);
+                var fiveDayContainer = document.querySelector('.forecast-container');
+                fiveDayContainer.innerHTML = '';
+                fiveDayContainer.classList.add('bg-primary-subtle', 'py-3', 'd-flex', 'align-items-center');
+                var forecastHeader = document.createElement('h5');
+                fiveDayContainer.appendChild(forecastHeader);
+                forecastHeader.textContent = '5-day Forecast:';
+                forecastHeader.classList.add('text-center', 'display-6');
                 for (var i = 0; i < data.list.length; i++) {
                     if (data.list[i].dt_txt.split(' ')[1] === '12:00:00') {
                         console.log(data.list[i]); // all 5 days at noon
 
-                        var fiveDayContainer = document.querySelector('.forecast-container');
-                        fiveDayContainer.classList.add('bg-primary-subtle', 'py-3');
+
                         var cardEl = document.createElement('div'); // card el to hold forecase data
                         cardEl.classList.add("card", "mt-3", "forecast", 'card-body', 'ms-1', 'me-1');
                         cardEl.style.width = '18rem';
@@ -55,10 +61,7 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
                         dateEl.textContent = data.list[i].dt_txt.split(' ')[0];
                     }
                 }
-                var forecastHeader = document.createElement('h5');
-                fiveDayContainer.appendChild(forecastHeader);
-                forecastHeader.textContent = '5-day Forecast:';
-                forecastHeader.classList.add('text-center', 'display-6');
+
             })
     })
 };
@@ -76,8 +79,10 @@ function currentWeather() {
             .then(function (data) {
                 console.log('CURRENT data: ')
                 console.log(data);
-
+                console.log('weather icon id: ')
+                console.log(data.weather[0].icon);
                 var currentContainer = document.querySelector('.current-container');
+                currentContainer.innerHTML = '';
                 var currentCardEl = document.createElement('div'); // card el to hold forecase data
                 currentCardEl.classList.add("card", "mt-2", "forecast", 'card-body', 'bg-primary-subtle');
                 currentCardEl.style.width = '18rem';
