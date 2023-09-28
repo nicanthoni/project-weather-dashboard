@@ -1,14 +1,3 @@
-// USER STORY: AS A traveler
-// I WANT to see the weather outlook for multiple cities -> SO THAT I can plan a trip accordingly
-
-// ACCEPTANCE CRITERIA:
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city -> THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city -> THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the the wind speed
-// WHEN I view future weather conditions for that city -> THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// WHEN I click on a city in the search history -> THEN I am again presented with current and future conditions for that city
-
-
 var APIKey = "32ec16b0deb6b7328bcf20bb8cd46fce";
 var queryURL;
 var city; // user input to be stored in this variable
@@ -52,7 +41,6 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
                         var humidEl = document.createElement('li'); // li for humidity
                         humidEl.classList.add('list-group-item');
 
-
                         fiveDayContainer.appendChild(cardEl); // append card to div
                         cardEl.appendChild(dateEl); // append date to card div
                         cardEl.appendChild(ulEl); // append UL to the card
@@ -60,21 +48,21 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
                         ulEl.appendChild(windEl); // append the windspeed as li to UL
                         ulEl.appendChild(humidEl); //append the humididity as li to UL
 
-
                         tempEl.textContent = 'Temperature: ' + data.list[i].main.temp + ' °F'; // asign data to an element
                         windEl.textContent = 'Wind Speed: ' + data.list[i].wind.speed + ' mph'; // asign data to an element
                         humidEl.textContent = 'Humidity: ' + data.list[i].main.humidity + '%'; // asign data to an element
                         dateEl.textContent = data.list[i].dt_txt.split(' ')[0];
-
-                        // cardEl.append to the div etc
-
                     }
                 }
+                var forecastHeader = document.createElement('h5');
+                fiveDayContainer.appendChild(forecastHeader);
+                forecastHeader.textContent = '5-day Forecast:'
+                forecastHeader.classList.add('text-center');
             })
     })
 };
 
-// for todays weather -> same code as above but attached to new elements
+
 function currentWeather() {
     searchBtn.addEventListener("click", function () {
         event.preventDefault();
@@ -87,6 +75,7 @@ function currentWeather() {
             .then(function (data) {
                 console.log('CURRENT data: ')
                 console.log(data);
+
                 var currentContainer = document.querySelector('.current-container');
                 var currentCardEl = document.createElement('div'); // card el to hold forecase data
                 currentCardEl.classList.add("card", "mt-5", "forecast", 'card-body', 'bg-primary-subtle');
@@ -102,14 +91,12 @@ function currentWeather() {
                 var currentHumidEl = document.createElement('li'); // li for humidity
                 currentHumidEl.classList.add('list-group-item', 'text-center');
 
-
                 currentContainer.appendChild(currentCardEl); // append card to div
                 currentCardEl.appendChild(currentDateEl); // append date to card div
                 currentCardEl.appendChild(currentUlEl); // append UL to the card
                 currentUlEl.appendChild(currentTempEl); // append the temp as li to UL
                 currentUlEl.appendChild(currentWindEl); // append the windspeed as li to UL
                 currentUlEl.appendChild(currentHumidEl); //append the humididity as li to UL
-
 
                 currentTempEl.textContent = 'Temperature: ' + data.main.temp + ' °F'; // asign data to an element
                 currentWindEl.textContent = 'Wind Speed: ' + data.wind.speed + ' mph'; // asign data to an element
@@ -119,9 +106,12 @@ function currentWeather() {
     });
 }
 
-// function addImage () {
+// function addIcons () {
 //     // API call for images by weather conditions
 // }
+
+
+
 
 
 fiveDayFunction();
