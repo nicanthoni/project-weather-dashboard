@@ -9,28 +9,19 @@
 // WHEN I click on a city in the search history -> THEN I am again presented with current and future conditions for that city
 
 
-//API call example: https://api.openweathermap.org/data/2.5/weather?q=London&appid={API key}
-// weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}";
-
-
-var state;
-var country;
 var APIKey = "32ec16b0deb6b7328bcf20bb8cd46fce";
 var queryURL;
 var city; // user input to be stored in this variable
 
 var searchInput = document.getElementById("citySearch"); // Input (search) element
 var searchBtn = document.getElementById("searchBtn"); // Button element
-
-var temperatureEl = document.getElementById("temp1"); // Temp El from first card
-var windSpeedEl = document.getElementById('wind-Speed1'); // windSpeed el from first card
-var humidityEl = document.getElementById('humidity1'); // humidity El from first card
 var dateEl; // Date element on card
+var currentDateEl;
 
 
 function fiveDayFunction() { // Calls forecast, NOT current weather. (replace forecast with 'weather')
     searchBtn.addEventListener("click", function () {
-        event.preventDefault(); // Prevent the form from submitting
+        event.preventDefault();
         city = searchInput.value;
         queryURL = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + city + "&appid=" + APIKey;
         console.log('City Name: ')
@@ -40,39 +31,98 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
                 return response.json();
             })
             .then(function (data) {
-                console.log('Data: ')
+                console.log('5Day data: ')
                 console.log(data);
- for (var i = 0; i < data.list.length; i++) {
-   if (data.list[i].dt_txt.split(' ')[1] === '12:00:00') {
-console.log(data.list[i]); // all 5 days at noon
-var cardEl = document.createElement('div');
-var ulEl = document.createElement('ul');
-var tempEl = document.createElement('li');
-var windEl = document.createElement('li');
-var humidEl = document.createElement('li');
+                for (var i = 0; i < data.list.length; i++) {
+                    if (data.list[i].dt_txt.split(' ')[1] === '12:00:00') {
+                        console.log(data.list[i]); // all 5 days at noon
 
-tempEl.textContent = 'Temperature: ' + data.list[i].main.temp; // asign data to an element
-windEl.textContent = 'Wind Speed: ' + data.list[i].wind.speed + 'MPH'; // asign data to an element
-humidEl = 'Humidity: ' + data.list[i].main.humidity; // asign data to an element
+                        var fiveDayContainer = document.querySelector('.forecast-container');
+                        var cardEl = document.createElement('div'); // card el to hold forecase data
+                        cardEl.classList.add("card", "mt-4", "forecast", 'card-body');
+                        cardEl.style.width = '18rem';
+                        var dateEl = document.createElement('h5'); // Date element on card
+                        dateEl.classList.add('text-center');
+                        var ulEl = document.createElement('ul'); // ul el to hold below li's
+                        ulEl.classList.add('list-group', 'list-group-flush');
+                        var tempEl = document.createElement('li'); // li for temp (far)
+                        tempEl.classList.add('list-group-item');
+                        var windEl = document.createElement('li'); // li for windspeed
+                        windEl.classList.add('list-group-item');
+                        var humidEl = document.createElement('li'); // li for humidity
+                        humidEl.classList.add('list-group-item');
 
-// cardEl.append to the div etc
 
-   }
- }
+                        fiveDayContainer.appendChild(cardEl); // append card to div
+                        cardEl.appendChild(dateEl); // append date to card div
+                        cardEl.appendChild(ulEl); // append UL to the card
+                        ulEl.appendChild(tempEl); // append the temp as li to UL
+                        ulEl.appendChild(windEl); // append the windspeed as li to UL
+                        ulEl.appendChild(humidEl); //append the humididity as li to UL
 
 
-                // temperatureEl.textContent = 'Temperature: ' + data.list[0].main.temp; // asign data to an element
-                // windSpeedEl.textContent = 'Wind Speed: ' + data.list[0].wind.speed + 'MPH'; // asign data to an element
-                // humidityEl.textContent = 'Humidity: ' + data.list[0].main.humidity; // asign data to an element
+                        tempEl.textContent = 'Temperature: ' + data.list[i].main.temp + ' °F'; // asign data to an element
+                        windEl.textContent = 'Wind Speed: ' + data.list[i].wind.speed + ' mph'; // asign data to an element
+                        humidEl.textContent = 'Humidity: ' + data.list[i].main.humidity + '%'; // asign data to an element
+                        dateEl.textContent = data.list[i].dt_txt.split(' ')[0];
+
+                        // cardEl.append to the div etc
+
+                    }
+                }
             })
-    }) 
+    })
 };
 
-// function currentWeather() { // for todays weather -> same code as above but attached to new elements
+// for todays weather -> same code as above but attached to new elements
+function currentWeather() {
+    searchBtn.addEventListener("click", function () {
+        event.preventDefault();
+        city = searchInput.value;
+        queryURL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + city + "&appid=" + APIKey;
+        fetch(queryURL)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log('CURRENT data: ')
+                console.log(data);
+                var currentContainer = document.querySelector('.current-container');
+                var currentCardEl = document.createElement('div'); // card el to hold forecase data
+                currentCardEl.classList.add("card", "mt-5", "forecast", 'card-body', 'bg-primary-subtle');
+                currentCardEl.style.width = '18rem';
+                var currentDateEl = document.createElement('h5'); // Date element on card
+                currentDateEl.classList.add('text-center');
+                var currentUlEl = document.createElement('ul'); // ul el to hold below li's
+                currentUlEl.classList.add('list-group', 'list-group-flush');
+                var currentTempEl = document.createElement('li'); // li for temp (far)
+                currentTempEl.classList.add('list-group-item', 'text-center');
+                var currentWindEl = document.createElement('li'); // li for windspeed
+                currentWindEl.classList.add('list-group-item', 'text-center');
+                var currentHumidEl = document.createElement('li'); // li for humidity
+                currentHumidEl.classList.add('list-group-item', 'text-center');
 
+
+                currentContainer.appendChild(currentCardEl); // append card to div
+                currentCardEl.appendChild(currentDateEl); // append date to card div
+                currentCardEl.appendChild(currentUlEl); // append UL to the card
+                currentUlEl.appendChild(currentTempEl); // append the temp as li to UL
+                currentUlEl.appendChild(currentWindEl); // append the windspeed as li to UL
+                currentUlEl.appendChild(currentHumidEl); //append the humididity as li to UL
+
+
+                currentTempEl.textContent = 'Temperature: ' + data.main.temp + ' °F'; // asign data to an element
+                currentWindEl.textContent = 'Wind Speed: ' + data.wind.speed + ' mph'; // asign data to an element
+                currentHumidEl.textContent = 'Humidity: ' + data.main.humidity + '%'; // asign data to an element
+                currentDateEl.textContent = city + ' now: '; // cities current weather
+            });
+    });
+}
+
+// function addImage () {
+//     // API call for images by weather conditions
 // }
 
 
-
-
 fiveDayFunction();
+currentWeather();
