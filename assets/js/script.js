@@ -27,8 +27,9 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
                         console.log(data.list[i]); // all 5 days at noon
 
                         var fiveDayContainer = document.querySelector('.forecast-container');
+                        fiveDayContainer.classList.add('bg-primary-subtle', 'py-3');
                         var cardEl = document.createElement('div'); // card el to hold forecase data
-                        cardEl.classList.add("card", "mt-4", "forecast", 'card-body', 'ms-1', 'me-1');
+                        cardEl.classList.add("card", "mt-3", "forecast", 'card-body', 'ms-1', 'me-1');
                         cardEl.style.width = '18rem';
                         var dateEl = document.createElement('h5'); // Date element on card
                         dateEl.classList.add('text-center');
@@ -56,8 +57,8 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
                 }
                 var forecastHeader = document.createElement('h5');
                 fiveDayContainer.appendChild(forecastHeader);
-                forecastHeader.textContent = '5-day Forecast:'
-                forecastHeader.classList.add('text-center');
+                forecastHeader.textContent = '5-day Forecast:';
+                forecastHeader.classList.add('text-center', 'display-6');
             })
     })
 };
@@ -81,7 +82,7 @@ function currentWeather() {
                 currentCardEl.classList.add("card", "mt-2", "forecast", 'card-body', 'bg-primary-subtle');
                 currentCardEl.style.width = '18rem';
                 var currentDateEl = document.createElement('h5'); // Date element on card
-                currentDateEl.classList.add('text-center');
+                currentDateEl.classList.add('text-center', 'display-6');
                 var currentUlEl = document.createElement('ul'); // ul el to hold below li's
                 currentUlEl.classList.add('list-group', 'list-group-flush');
                 var currentTempEl = document.createElement('li'); // li for temp (far)
