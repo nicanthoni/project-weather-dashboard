@@ -28,7 +28,7 @@ function fiveDayFunction() { // Calls forecast, NOT current weather. (replace fo
 
                         var fiveDayContainer = document.querySelector('.forecast-container');
                         var cardEl = document.createElement('div'); // card el to hold forecase data
-                        cardEl.classList.add("card", "mt-4", "forecast", 'card-body');
+                        cardEl.classList.add("card", "mt-4", "forecast", 'card-body', 'ms-1', 'me-1');
                         cardEl.style.width = '18rem';
                         var dateEl = document.createElement('h5'); // Date element on card
                         dateEl.classList.add('text-center');
@@ -78,7 +78,7 @@ function currentWeather() {
 
                 var currentContainer = document.querySelector('.current-container');
                 var currentCardEl = document.createElement('div'); // card el to hold forecase data
-                currentCardEl.classList.add("card", "mt-5", "forecast", 'card-body', 'bg-primary-subtle');
+                currentCardEl.classList.add("card", "mt-2", "forecast", 'card-body', 'bg-primary-subtle');
                 currentCardEl.style.width = '18rem';
                 var currentDateEl = document.createElement('h5'); // Date element on card
                 currentDateEl.classList.add('text-center');
