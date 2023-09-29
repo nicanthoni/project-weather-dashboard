@@ -97,9 +97,16 @@ function currentWeather() {
                 var currentHumidEl = document.createElement('li'); // li for humidity
                 currentHumidEl.classList.add('list-group-item', 'text-center');
 
+                var currentIcon = document.createElement('img');
+                var iconID = data.weather[0].icon;
+                currentIcon.src = `https://openweathermap.org/img/w/${iconID}.png`
+                // currentIcon.src = "https://openweathermap.org/img/w/${data.weather[0].icon}.png"
+                
+
                 currentContainer.appendChild(currentCardEl); // append card to div
                 currentCardEl.appendChild(currentDateEl); // append date to card div
                 currentCardEl.appendChild(currentUlEl); // append UL to the card
+                currentUlEl.appendChild(currentIcon); // append weatherIcon to current card
                 currentUlEl.appendChild(currentTempEl); // append the temp as li to UL
                 currentUlEl.appendChild(currentWindEl); // append the windspeed as li to UL
                 currentUlEl.appendChild(currentHumidEl); //append the humididity as li to UL
