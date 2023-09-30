@@ -18,7 +18,7 @@ JavaScript, HTML, CSS, Bootstrap, and Open Weather API.
 
 ## Deployed application link
 
-Deplyed application: 
+Deplyed application: https://nicanthoni.github.io/project-weather-dashboard/
 
 
 ## How to use?

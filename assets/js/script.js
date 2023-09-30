@@ -144,6 +144,7 @@ function createButton() {
 searchBtn.addEventListener("click", function () {
     event.preventDefault();
     city = searchInput.value.trim();
+    city = city.toUpperCase();
 
     if (city !== "" ) {
     savedCities = JSON.parse(localStorage.getItem('City')) || [];
