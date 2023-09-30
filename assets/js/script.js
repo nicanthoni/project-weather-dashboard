@@ -98,9 +98,12 @@ function currentWeather(city) {
             currentHumidEl.classList.add('list-group-item', 'text-center');
 
             var currentIcon = document.createElement('img');
+            currentIcon.classList.add('d-flex', 'text-center', 'mx-auto');
             var iconID = data.weather[0].icon;
             currentIcon.style.width = '100px';
             currentIcon.src = `https://openweathermap.org/img/w/${iconID}.png`
+
+
             currentContainer.appendChild(currentCardEl); // append card to div
             currentCardEl.appendChild(currentDateEl); // append date to card div
             currentCardEl.appendChild(currentUlEl); // append UL to the card
@@ -125,7 +128,7 @@ function createButton() {
     
         var cityName = savedCities[i];
         var cityBtn = document.createElement('button');
-        cityBtn.classList.add('ms-1', 'me-1');
+        cityBtn.classList.add("btn", "btn-secondary", "ms-1", "me-1");
         cityBtn.textContent = cityName;
         btnContainer.appendChild(cityBtn);
         cityBtn.addEventListener("click", function () {
