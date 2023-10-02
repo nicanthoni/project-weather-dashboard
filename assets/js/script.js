@@ -10,7 +10,7 @@ var savedCities;
 
 
 function fiveDay(city) { // Calls forecast, NOT current weather. (replace forecast with 'weather')
-    queryURL = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + city + "&appid=" + APIKey;
+    queryURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + city + "&appid=" + APIKey;
     console.log('City Name: ')
     fetch(queryURL)
         .then(function (response) {
@@ -71,7 +71,7 @@ function fiveDay(city) { // Calls forecast, NOT current weather. (replace foreca
 };
 
 function currentWeather(city) {
-    queryURL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + city + "&appid=" + APIKey;
+    queryURL = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" + city + "&appid=" + APIKey;
     fetch(queryURL)
         .then(function (response) {
             return response.json();
